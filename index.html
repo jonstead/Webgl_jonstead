@@ -7,10 +7,10 @@
 </head>
 
 <body>
-<!-- The only element we need. This is where we draw. -->
-<canvas id="glcanvas" style="width:640px;height:480px"></canvas>
-<!-- Loading helper functions for the creation of matrices -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
+  <!-- The only element we need. This is where we draw. -->
+  <canvas id="glcanvas" style="width:640px;height:480px"></canvas>
+  <!-- Loading helper functions for the creation of matrices -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js"></script>
   <script src="./vertexShader.js"></script>
   <script src="./fragmentShader.js"></script>
   <script>
@@ -18,12 +18,12 @@
     // We need to make room for out shaders.
     // We need to compile the shaders.
     function loadShader(gl, type, source) {
-    // Allocate memory for the type of shader.
-    const shader = gl.createShader(type);
-    // Assign the code as a string.
+      // Allocate memory for the type of shader.
+      const shader = gl.createShader(type);
+      // Assign the code as a string.
       gl.shaderSource(shader, source);
-    // Tell the GPU to compile the shader.
-    gl.compileShader(shader);
+      // Tell the GPU to compile the shader.
+      gl.compileShader(shader);
       return shader;
     }
 
@@ -49,14 +49,36 @@
     //   1.0, -1.0,
     //   -1.0, -1.0
     // ];
+    // const positions = [
+    // 1.0, 1.0,
+    // -1.0, 1.0,
+    // 1.0, -1.0,
+    // -1.0, -1.0,
+    // 0.0, -2,
+    // 1, -1, 2, 0, 1, 1, 0, 2, -1, 1, -2, 0, -1, -1
+    // ];
+    // J created and translated from paint - Single J, NOTE: remove 1 from ( gl.drawArrays(gl.TRIANGLE_STRIP, 0, #); ) if there is a line going to 0, 0
+    // Solves problem of trying to account for it
     const positions = [
-    1.0, 1.0,
-    -1.0, 1.0,
-    1.0, -1.0,
-    -1.0, -1.0,
-    0.0, -2,
-    1, -1, 2, 0, 1, 1, 0, 2, -1, 1, -2, 0, -1, -1
+      150 / 362, -207 / 332,
+      202 / 362, -207 / 332,
+      155 / 362, -243 / 332,
+      213 / 362, -247 / 332,
+      171 / 362, -277 / 332,
+      230 / 362, -273 / 332,
+      227 / 362, -328 / 332,
+      262 / 362, -283 / 332,
+      289 / 362, -332 / 332,
+      303 / 362, -269 / 332,
+      336 / 362, -301 / 332,
+      327 / 362, -238 / 332,
+      362 / 362, -238 / 332,
+      334 / 362, -209 / 332,
+      365 / 362, -209 / 332,
+      334 / 362, -58 / 332,
+      365 / 362, -58 / 332,      
     ];
+    
     // Create a moemory slot for the vertices.
     const positionBuffer = gl.createBuffer();
     // Put this information on the GPU.
@@ -64,11 +86,11 @@
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
     // Create our vertex lists.
-    const indeces = [0,1,2,2,1,3];
+    const indeces = [0, 1, 2, 2, 1, 3];
     const indexBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
     gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indeces), gl.STATIC_DRAW)
-    
+
     // Data we are going to bind to the shaders.
     // There is a variable we need to bind, it is called aVertexPosition
     let vertexPosition = gl.getAttribLocation(shaderProgram, "aVertexPosition")
@@ -89,7 +111,7 @@
     gl.useProgram(shaderProgram);
 
     // End part 3 - Vertices and Matrices
-    
+
     // Attach the per frame information
     gl.enableVertexAttribArray(gl.getAttribLocation(shaderProgram, "aVertexPosition"));
     gl.uniformMatrix4fv(gl.getUniformLocation(shaderProgram, "uProjectionMatrix"), false, projectionMatrix);
@@ -97,20 +119,20 @@
 
     // The actual draw calls
     // We want to use a depth test on the z buffer
-    gl.enable(gl.DEPTH_TEST); 
+    gl.enable(gl.DEPTH_TEST);
     // What does it mean to 'win' on the GPU
     // <=
     // Notable it is not < although it doesn't matter
-    gl.depthFunc(gl.LEQUAL); 
+    gl.depthFunc(gl.LEQUAL);
     // Set our default z buffer color
     gl.clearColor(0.0, 0.0, 0.5, 1.0);
     // Actually clear the buffers
     gl.clear(gl.COLOR_BUFFER_BIT);
     // Actually clears the depth
-    gl.clearDepth(1.0); 
-    
+    gl.clearDepth(1.0);
+
     // Our draw call
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 12);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 17);
     // gl.enable(gl.CULL_FACE);
     // gl.drawElements(gl.TRIANGLES, 3, gl.UNSIGNED_SHORT, 0)
   </script>
