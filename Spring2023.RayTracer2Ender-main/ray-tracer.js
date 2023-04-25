@@ -33,7 +33,7 @@
 //     //push onto v
 //     let first = parts[1]
 //     let coords = first.split('/')
-    
+
 //   }
 
 // }
@@ -71,23 +71,34 @@ function main() {
   let collision = sphere.intersect(rayOrigin, rayDirection)
   console.log(collision);
 
-  let x = 33;
-  let s1 = new Sphere(new Vector3(0, x, 0), 30);
-  let s2 = new Sphere(new Vector3(x, 0, 0), 30);
-  let s3 = new Sphere(new Vector3(-x, 0, 0), 30);
-  let s4 = new Sphere(new Vector3(0, -x, 0), 30);
-  let s5 = new Sphere(new Vector3(0, 0, -10), 20);
-  let s6 = new Sphere(new Vector3(x, x, -20), 20);
-  let s7 = new Sphere(new Vector3(x, -x, -20), 20);
-  let s8 = new Sphere(new Vector3(-x, x, -20), 20);
-  let s9 = new Sphere(new Vector3(-x, -x, -20), 20);
+  // let x = 33;
+  // let s1 = new Sphere(new Vector3(0, x, 0), 30);
+  // let s2 = new Sphere(new Vector3(x, 0, 0), 30);
+  // let s3 = new Sphere(new Vector3(-x, 0, 0), 30);
+  // let s4 = new Sphere(new Vector3(0, -x, 0), 30);
+  // let s5 = new Sphere(new Vector3(0, 0, -10), 20);
+  // let s6 = new Sphere(new Vector3(x, x, -20), 20);
+  // let s7 = new Sphere(new Vector3(x, -x, -20), 20);
+  // let s8 = new Sphere(new Vector3(-x, x, -20), 20);
+  // let s9 = new Sphere(new Vector3(-x, -x, -20), 20);
   // let g = 33;
   // let s1 = new Sphere(new Vector3(g/4+5, g/4+5, 5), 30);
   // let s2 = new Sphere(new Vector3(-g, 0, 0), 30);
   // let s3 = new Sphere(new Vector3(-g, -g, 0), 30);
   // let s4 = new Sphere(new Vector3(0, -g, 0), 30);
   // let s5 = new Sphere(new Vector3(0, 0, -10), 40);
-  let spheres = [s1, s2, s3, s4, s5, s6, s7, s8, s9];
+  // let spheres = [s1, s2, s3, s4, s5];
+  let s1 = new Sphere(new Vector3(0, -20, 0), 15);
+  let s2 = new Sphere(new Vector3(0, -8, 1), 10);
+  let s3 = new Sphere(new Vector3(0, 0, 0), 10);
+  let s4 = new Sphere(new Vector3(10, 0, 0), 10);
+  let s5 = new Sphere(new Vector3(-10, 0, 0), 10);
+  let s6 = new Sphere(new Vector3(0, 10, 0), 10);
+  let s7 = new Sphere(new Vector3(10, 20, 0), 10);
+  let s8 = new Sphere(new Vector3(-10, 20, 0), 10);
+  let s9 = new Sphere(new Vector3(10, -30, 0), 10);
+  let s10 = new Sphere(new Vector3(-10, -30, 0), 10);
+  let spheres = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10];
 
   //Ray Tracer starts
 
@@ -114,71 +125,77 @@ function main() {
           let c = collision.v
           let normal = (c.minus(s.center)).normalize()
           let dot = normal.dot(new Vector3(0, -1, 1).normalize()); // first -1 left 1 Right, second -1 Top 1 Bottom, third -1 back 1 Front
-          let aC,bC,cC = 0;
+          let aC, bC, cC = 0;
+          let color = true;
           if (dot <= 0)
             dot = 0
-          if(startX >= 30){
-            aC = 255 * 1.5 * dot;
-            bC = 255 * dot;
-            cC = 255 * dot;
-            rayTracedPixel = new Pixel(aC, bC, cC);
-          }
-          else if(startX >= 20){
-            aC = 255 * 1.25 * dot;
-            bC = 255 * dot;
-            cC = 255 * dot;
-            rayTracedPixel = new Pixel(aC, bC, cC);
-          }          
-          else if(startX >= 10){
-            aC = 255 * 1.1 * dot;
-            bC = 255 * dot;
-            cC = 255 * dot;
-            rayTracedPixel = new Pixel(aC, bC, cC);
-          }
-          else if(startX < -30){
-            aC = 255 * dot;
-            bC = 255 * 1.5 * dot;
-            cC = 255 * dot;
-            rayTracedPixel = new Pixel(aC, bC, cC);
-          }
-          else if(startX < -20){
-            aC = 255 * dot;
-            bC = 255 * 1.25 * dot;
-            cC = 255 * dot;
-            rayTracedPixel = new Pixel(aC, bC, cC);
-          }
-          else if(startX < -10){
-            aC = 255 * dot;
-            bC = 255 * 1.1 * dot;
-            cC = 255 * dot;
-            rayTracedPixel = new Pixel(aC, bC, cC);
+          if (color == true) {
+            if (startX >= 30) {
+              aC = 255 * 1.5 * dot;
+              bC = 255 * dot;
+              cC = 255 * dot;
+              rayTracedPixel = new Pixel(aC, bC, cC);
+            }
+            else if (startX >= 20) {
+              aC = 255 * 1.25 * dot;
+              bC = 255 * dot;
+              cC = 255 * dot;
+              rayTracedPixel = new Pixel(aC, bC, cC);
+            }
+            else if (startX >= 10) {
+              aC = 255 * 1.1 * dot;
+              bC = 255 * dot;
+              cC = 255 * dot;
+              rayTracedPixel = new Pixel(aC, bC, cC);
+            }
+            else if (startX < -30) {
+              aC = 255 * dot;
+              bC = 255 * 1.5 * dot;
+              cC = 255 * dot;
+              rayTracedPixel = new Pixel(aC, bC, cC);
+            }
+            else if (startX < -20) {
+              aC = 255 * dot;
+              bC = 255 * 1.25 * dot;
+              cC = 255 * dot;
+              rayTracedPixel = new Pixel(aC, bC, cC);
+            }
+            else if (startX < -10) {
+              aC = 255 * dot;
+              bC = 255 * 1.1 * dot;
+              cC = 255 * dot;
+              rayTracedPixel = new Pixel(aC, bC, cC);
+            }
+            else {
+              aC = 255 * dot;
+              bC = 255 * dot;
+              cC = 255 * 1.5 * dot;
+              rayTracedPixel = new Pixel(aC, bC, cC);
+            }
+            if (startY >= 30) {
+              rayTracedPixel = new Pixel(1.5 * aC, bC, cC);
+            }
+            else if (startY >= 20) {
+              rayTracedPixel = new Pixel(1.25 * aC, bC, cC);
+            }
+            else if (startY >= 10) {
+              rayTracedPixel = new Pixel(1.1 * aC, bC, cC);
+            }
+            else if (startY < -30) {
+              rayTracedPixel = new Pixel(aC, 1.5 * bC, cC);
+            }
+            else if (startY < -20) {
+              rayTracedPixel = new Pixel(aC, 1.25 * bC, cC);
+            }
+            else if (startY < -10) {
+              rayTracedPixel = new Pixel(aC, 1.1 * bC, cC);
+            }
+            else {
+              rayTracedPixel = new Pixel(aC, bC, 1.5 * cC);
+            }
           }
           else{
-            aC = 255 * dot;
-            bC = 255 * dot;
-            cC = 255 * 1.5 * dot;
-            rayTracedPixel = new Pixel(aC, bC, cC);
-          }
-          if(startY >= 30){
-            rayTracedPixel = new Pixel(1.5 * aC, bC, cC);
-          }
-          else if(startY >= 20){
-            rayTracedPixel = new Pixel(1.25 * aC, bC, cC);
-          }
-          else if(startY >= 10){
-            rayTracedPixel = new Pixel(1.1 * aC, bC, cC);
-          }
-          else if(startY < -30){
-            rayTracedPixel = new Pixel(aC, 1.5 * bC, cC);
-          }
-          else if(startY < -20){
-            rayTracedPixel = new Pixel(aC, 1.25 * bC, cC);
-          }
-          else if(startY < -10){
-            rayTracedPixel = new Pixel(aC, 1.1 * bC, cC);
-          }
-          else{
-            rayTracedPixel = new Pixel(aC, bC, 1.5 * cC);
+            rayTracedPixel = new Pixel(255 * dot, 255 * dot, 255 * dot);
           }
         }
 
