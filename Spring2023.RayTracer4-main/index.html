@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Ray Tracer</title>
+  <style>
+    html,
+    body {
+      background-color: black;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    /* See https://www.w3schools.com/css/tryit.asp?filename=trycss3_flexbox_perfect_center */
+    .flex-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="flex-container">
+    <canvas id="canvas"></canvas>
+  </div>
+  <script>
+    document.querySelector("#canvas").addEventListener("mousemove", mousemove)
+    function mousemove(e){
+      document.title = (e.offsetX +" " + e.offsetY)
+    }
+  </script>
+  <script src="vector.js"></script>
+  <script src="pixel.js"></script>
+  <script src="sphere.js"></script>
+  <script src="vertex.js"></script>
+  <script src="light.js"></script>
+  <script src="camera.js"></script>
+  <script src="collision.js"></script>
+  <script src="triangle.js"></script>
+  <script src="mesh.js"></script>
+  <script src="rt-object.js"></script>
+  <script src="shader.js"></script>
+  <script src="scene.js"></script>
+  <script src="scenes.js"></script>
+  <script src="ray-tracer.js"></script>
+</body>
+
+</html>
